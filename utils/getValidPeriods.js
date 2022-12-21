@@ -27,7 +27,7 @@ function createNewPeriod(periodsList, remainingDays = 0) {
   const { endDate: lastEndDate } = periodsList[lastIndex] 
   console.log(lastEndDate)
   const lastEndDateDay = Number(lastEndDate.slice(8,10))
-  const newStartDateDay = lastEndDateDay + 1 < 10 ? "0" + lastEndDateDay : lastEndDateDay
+  const newStartDateDay = lastEndDateDay + 1 < 10 ? "0" + (lastEndDateDay + 1) : lastEndDateDay + 1
   const newStartDate = lastEndDate.slice(0,8) + newStartDateDay + lastEndDate.slice(10)
   const newEndDate = getFutureDate(newStartDate, remainingDays)
   return { startDate: newStartDate, endDate: newEndDate}
