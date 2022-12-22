@@ -19,7 +19,7 @@ chrome.action.onClicked.addListener(async () => {
   // periods.forEach(period => console.log(period))
   const queryString = `startDate=${startDate}&endDate=${endDate}`
   const statementUrl = `https://www.nuinvest.com.br/api/gringott/statements/1?${queryString}`
-  const { authToken } = await chrome.storage.local.get("authToken");
+  const { authToken } = await chrome.storage.session.get("authToken");
   
   try {
     const res = await fetch(statementUrl, { headers: { "Authorization": authToken}})
