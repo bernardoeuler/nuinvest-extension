@@ -3,7 +3,7 @@ export async function storeAuthToken(details) {
   if (authorizationHeader) {
     const authToken = authorizationHeader.value
     const sessionStorage = await chrome.storage.session.get(null)
-    if (sessionStorage.authToken === undefined) {
+    if (sessionStorage.authToken === undefined || sessionStorage.authToken !== authToken) {
       await chrome.storage.session.set({ authToken })
     }
   }
