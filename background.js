@@ -9,26 +9,38 @@ chrome.webRequest.onSendHeaders.addListener(storeAuthToken, requestFilters, [ "r
 chrome.storage.onChanged.addListener(handleStorageChange)
 
 chrome.action.onClicked.addListener(async () => {
-  // Dates are about the settlement date of the transactions
-  // If response status is 204, the res.json() method won't be called.
-  // And the user will be notified if the response don't have content.
-  const startDate = "2016-11-08T00:00:00"
-  const endDate =   "2022-05-11T00:00:00"
-  const periods = getValidPeriods(startDate, endDate) // returns array
-  console.log(periods)
-  // periods.forEach(period => console.log(period))
-  const queryString = `startDate=${startDate}&endDate=${endDate}`
-  const statementUrl = `https://www.nuinvest.com.br/api/gringott/statements/1?${queryString}`
-  const { authToken } = await chrome.storage.session.get("authToken");
+  const startDate = "2020-10-08T00:00:00"
+  const endDate =   "2022-12-24T00:00:00"
+  const { authToken } = await chrome.storage.session.get("authToken")
+  const periods = getValidPeriods(startDate, endDate)
+  const transactions = []
   
-  try {
-    const res = await fetch(statementUrl, { headers: { "Authorization": authToken}})
-    // const statement = await res.json()
-    // const date = new Date(statement.value.statements[0].settlementDate)
-    console.log(await res.json())
+  for (const period of periods) {
+    const { startDate, endDate } = period
+    const queryString = `startDate=${startDate}&endDate=${endDate}`
+    const statementUrl = `https://www.nuinvest.com.br/api/gringott/statements/1?${queryString}`
+    const periodStatement = await getData(statementUrl, { "Authorization": authToken })
+    if (periodStatement) {
+      transactions.push(...periodStatement.value.statements)
+    }
   }
-  
-  catch (error) {
-    console.error(error)
+
+  const fullStatement = {
+    transactions,
+    initialBalance: transactions[0].balance - transactions[0].value,
+    finalBalance: transactions[transactions.length - 1].balance
   }
+
+  console.log(fullStatement)
 })
+
+async function getData(url, headers) {
+  try {
+    const res = await fetch(url, { headers: headers})
+    if (res.status === 200) return await res.json()
+  }
+  catch (err) {
+    console.warn(url)
+    console.error(err)
+  }
+}
