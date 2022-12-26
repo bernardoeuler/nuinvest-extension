@@ -1,6 +1,7 @@
 import { handleStorageChange } from "./utils/handleStorageChange.js"
 import { storeAuthToken } from "./utils/storeAuthToken.js"
 import { getValidPeriods } from "./utils/getValidPeriods.js"
+import { getData } from "./utils/getData.js"
 
 const requestFilters = { urls: ["https://*.nuinvest.com.br/api/*"] }
 
@@ -38,14 +39,3 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   sendResponse({received: true})
   console.log(message)
 })
-
-async function getData(url, headers) {
-  try {
-    const res = await fetch(url, { headers: headers})
-    if (res.status === 200) return await res.json()
-  }
-  catch (err) {
-    console.warn(url)
-    console.error(err)
-  }
-}
