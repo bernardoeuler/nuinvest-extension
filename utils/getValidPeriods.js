@@ -1,3 +1,5 @@
+import { getDateString } from "./getDateString.js"
+
 export function getValidPeriods(startDate, endDate) {
   const periodOfDays = getTimeInterval(startDate, endDate)
   const periodOfYears = Math.floor(periodOfDays / 365)
@@ -31,15 +33,6 @@ function createNewPeriod(periodsList, remainingDays = 0) {
   const newStartDate = lastEndDate.slice(0,8) + newStartDateDay + lastEndDate.slice(10)
   const newEndDate = getFutureDate(newStartDate, remainingDays)
   return { startDate: newStartDate, endDate: newEndDate}
-}
-
-function getDateString(dateObj) {
-  const year = dateObj.getFullYear()
-  const month = dateObj.getMonth() + 1
-  const day = dateObj.getDate()
-  const monthString = month < 10 ? "0" + month : month
-  const dayString = day < 10 ? "0" + day : day
-  return `${year}-${monthString}-${dayString}T00:00:00`
 }
 
 function getFutureDate(startDate, daysPassed) {
