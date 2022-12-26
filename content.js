@@ -1,4 +1,4 @@
-chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   sendResponse({received: true})
-  chrome.runtime.sendMessage(msg)
+  chrome.runtime.sendMessage(message)
 })

@@ -34,9 +34,9 @@ chrome.action.onClicked.addListener(async () => {
   console.log(fullStatement)
 })
 
-chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   sendResponse({received: true})
-  console.log(msg)
+  console.log(message)
 })
 
 async function getData(url, headers) {
