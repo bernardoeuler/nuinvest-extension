@@ -34,6 +34,11 @@ chrome.action.onClicked.addListener(async () => {
   console.log(fullStatement)
 })
 
+chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
+  sendResponse({received: true})
+  console.log(msg)
+})
+
 async function getData(url, headers) {
   try {
     const res = await fetch(url, { headers: headers})

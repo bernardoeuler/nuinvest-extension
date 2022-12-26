@@ -10,6 +10,7 @@
     "128": "./images/icon-128.png"
   },
   "action": {
+    "default_popup": "./popup/index.html",
     "default_title": "Teste",
     "default_icon": {
       "16": "./images/icon-16.png",
@@ -24,6 +25,12 @@
   ],
   "host_permissions": [
     "https://*.nuinvest.com.br/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://*.nuinvest.com.br/*"],
+      "js": ["content.js"]
+    }
   ],
   "background": {
     "service_worker": "background.js",
