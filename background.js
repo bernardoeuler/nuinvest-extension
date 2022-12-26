@@ -9,9 +9,10 @@ chrome.webRequest.onSendHeaders.addListener(storeAuthToken, requestFilters, [ "r
 
 chrome.storage.onChanged.addListener(handleStorageChange)
 
-chrome.action.onClicked.addListener(async () => {
-  const startDate = "2020-10-08T00:00:00"
-  const endDate =   "2022-12-24T00:00:00"
+chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
+  sendResponse({received: true})
+
+  const { startDate, endDate } = message
   const { authToken } = await chrome.storage.session.get("authToken")
   const periods = getValidPeriods(startDate, endDate)
   const transactions = []
@@ -33,9 +34,4 @@ chrome.action.onClicked.addListener(async () => {
   }
 
   console.log(fullStatement)
-})
-
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  sendResponse({received: true})
-  console.log(message)
 })
