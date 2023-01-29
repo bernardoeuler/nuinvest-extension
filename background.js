@@ -10,7 +10,16 @@ chrome.storage.onChanged.addListener(handleStorageChange)
 
 chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
   sendResponse({received: true})
-  const { startDate, endDate } = message
-  const statement = await getStatementBetweenDates(startDate, endDate)
-  console.log(statement)
+  const { action, data } = message
+  switch (action) {
+    case "download-statement":
+      const { startDate, endDate } = data
+      const statement = await getStatementBetweenDates(startDate, endDate)
+      console.log(statement)
+      break
+    default:
+      console.log("No action provided")  
+      break  
+  }
+
 })
