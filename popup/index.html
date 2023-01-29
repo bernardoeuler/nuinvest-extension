@@ -7,18 +7,24 @@
   <title>Nu invest</title>
 </head>
 <body>
-  <div class="show-statement">
-    <h1>Ver extrato entre duas datas</h1>
-    <div>
-      <label for="start-date">Data inicial</label>
-      <input type="date" name="start-date" id="start-date">
+  <div class="actions">
+    <div class="parameters">
+      <div>
+        <label for="start-date">Data inicial</label>
+        <input type="date" name="start-date" id="start-date">
+      </div>
+      <div>
+        <label for="end-date">Data final</label>
+        <input type="date" name="end-date" id="end-date">
+      </div>
     </div>
-    <div>
-      <label for="end-date">Data final</label>
-      <input type="date" name="end-date" id="end-date">
+
+    <div class="show-statement">
+      <h1>Ver extrato entre duas datas</h1>
+      <button id="download-statement-btn">Baixar extrato</button>
     </div>
-    <button id="download-statement-btn">Baixar extrato</button>
-    <script src="script.js" type="module"></script>    
   </div>
+
+  <script src="script.js" type="module"></script>    
 </body>
 </html>
