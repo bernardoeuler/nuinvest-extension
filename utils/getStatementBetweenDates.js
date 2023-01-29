@@ -1,5 +1,6 @@
 import { getData } from "./getData.js"
 import { getValidPeriods } from "./getValidPeriods.js"
+import { roundNumber } from "./roundNumber.js"
 
 export async function getStatementBetweenDates(startDate, endDate) {
   const { authToken } = await chrome.storage.session.get("authToken")
@@ -18,7 +19,7 @@ export async function getStatementBetweenDates(startDate, endDate) {
 
   return {
     movimentations,
-    initialBalance: movimentations[0].balance - movimentations[0].value,
-    finalBalance: movimentations[movimentations.length - 1].balance
+    initialBalance: roundNumber(movimentations[0].balance - movimentations[0].value),
+    finalBalance: roundNumber(movimentations[movimentations.length - 1].balance)
   }
 }
