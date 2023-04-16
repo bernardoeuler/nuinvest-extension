@@ -17,6 +17,9 @@ chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
       const statement = await getStatementBetweenDates(startDate, endDate)
       console.log(statement)
       break
+    case "show-investments-return":
+      console.log("show return")
+      break
     default:
       console.log("No action provided")  
       break  
