@@ -2,7 +2,7 @@ import { handleStorageChange } from "./utils/handleStorageChange.js"
 import { storeAuthToken } from "./utils/storeAuthToken.js"
 import { getStatementBetweenDates } from "./utils/getStatementBetweenDates.js"
 
-const requestFilters = { urls: ["https://*.nuinvest.com.br/api/*"] }
+const requestFilters = { urls: ["https://nuinvest.com.br/api/feedback/"] }
 
 chrome.webRequest.onSendHeaders.addListener(storeAuthToken, requestFilters, [ "requestHeaders" ])
 
